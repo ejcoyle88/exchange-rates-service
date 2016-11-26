@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService", "ExchangeRateService\ExchangeRateService.csproj", "{F176B33B-A5F1-4252-9835-2A8F45C7B803}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Nancy", "ExchangeRateService\ExchangeRateService.Nancy.csproj", "{F176B33B-A5F1-4252-9835-2A8F45C7B803}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Tests", "ExchangeRateService.Tests\ExchangeRateService.Tests.csproj", "{64C32EF3-2F77-45B4-830A-FF909DB685F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Client", "ExchangeRateService.Client\ExchangeRateService.Client.csproj", "{E0F9A765-36BB-4F91-8F8A-470625056AE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Common", "ExchangeRateService.Common\ExchangeRateService.Common.csproj", "{B604F62A-65C2-4143-9527-2791A606DEBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Core", "ExchangeRateService.Core\ExchangeRateService.Core.csproj", "{86D4C1EC-D127-41E4-BED3-906C8E1ECEB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +27,71 @@ Global
 		{64C32EF3-2F77-45B4-830A-FF909DB685F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64C32EF3-2F77-45B4-830A-FF909DB685F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64C32EF3-2F77-45B4-830A-FF909DB685F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0F9A765-36BB-4F91-8F8A-470625056AE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0F9A765-36BB-4F91-8F8A-470625056AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0F9A765-36BB-4F91-8F8A-470625056AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0F9A765-36BB-4F91-8F8A-470625056AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B604F62A-65C2-4143-9527-2791A606DEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B604F62A-65C2-4143-9527-2791A606DEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B604F62A-65C2-4143-9527-2791A606DEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B604F62A-65C2-4143-9527-2791A606DEBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86D4C1EC-D127-41E4-BED3-906C8E1ECEB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86D4C1EC-D127-41E4-BED3-906C8E1ECEB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86D4C1EC-D127-41E4-BED3-906C8E1ECEB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86D4C1EC-D127-41E4-BED3-906C8E1ECEB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$1.ResourceNamePolicy = FileFormatDefault
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = text/x-csharp
+		$0.XmlFormattingPolicy = $3
+		$3.inheritsSet = null
+		$3.scope = application/config+xml
+		$0.CSharpFormattingPolicy = $4
+		$4.IndentSwitchSection = True
+		$4.NewLinesForBracesInProperties = True
+		$4.NewLinesForBracesInAccessors = True
+		$4.NewLinesForBracesInAnonymousMethods = True
+		$4.NewLinesForBracesInControlBlocks = True
+		$4.NewLinesForBracesInAnonymousTypes = True
+		$4.NewLinesForBracesInObjectCollectionArrayInitializers = True
+		$4.NewLinesForBracesInLambdaExpressionBody = True
+		$4.NewLineForElse = True
+		$4.NewLineForCatch = True
+		$4.NewLineForFinally = True
+		$4.NewLineForMembersInObjectInit = True
+		$4.NewLineForMembersInAnonymousTypes = True
+		$4.NewLineForClausesInQuery = True
+		$4.SpacingAfterMethodDeclarationName = False
+		$4.SpaceAfterMethodCallName = False
+		$4.SpaceBeforeOpenSquareBracket = False
+		$4.inheritsSet = Mono
+		$4.inheritsScope = text/x-csharp
+		$4.scope = text/x-csharp
+		$0.StandardHeader = $5
+		$5.Text = 
+		$5.IncludeInNewFiles = True
+		$0.NameConventionPolicy = $6
+		$6.Rules = $7
+		$7.NamingRule = $8
+		$8.Name = Type Parameters
+		$8.AffectedEntity = TypeParameter
+		$8.VisibilityMask = VisibilityMask
+		$8.NamingStyle = PascalCase
+		$8.IncludeInstanceMembers = True
+		$8.IncludeStaticEntities = True
+		$8.RequiredPrefixes = $9
+		$9.String = T
+		$8.RequiredSuffixes = $10
+		$10.String = Exception
+		$0.VersionControlPolicy = $11
+		$11.inheritsSet = Mono
 	EndGlobalSection
 EndGlobal
