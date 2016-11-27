@@ -38,8 +38,7 @@ namespace ExchangeRateService.Core.Caching
 		private CacheItemPolicy GetCacheItemPolicy()
 		{
 			var minutes = _configuration.CacheExpiryTime;
-			var span = TimeSpan.FromMinutes(minutes);
-			var offset = new DateTimeOffset(DateTime.UtcNow, span);
+			var offset = new DateTimeOffset(DateTime.UtcNow.AddMinutes(minutes));
 			return new CacheItemPolicy
 			{
 				AbsoluteExpiration = offset

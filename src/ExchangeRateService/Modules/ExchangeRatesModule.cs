@@ -2,6 +2,7 @@ using ExchangeRateService.Core;
 using Nancy;
 using Nancy.ModelBinding;
 using ExchangeRateService.Common.Requests;
+using Nancy.Validation;
 
 namespace ExchangeRateService.Modules
 {
@@ -17,6 +18,13 @@ namespace ExchangeRateService.Modules
 			Post["/"] = parameters =>
 			{
 				var request = this.Bind<ExchangeRatesRequest>();
+
+				var validationResult = this.Validate(request);
+				if (!validationResult.IsValid)
+				{
+					return Negotiate.WithModel(validationResult).WithStatusCode(HttpStatusCode.BadRequest);
+				}
+
 				return _exchangeRatesService.GetExchangeRatesFor(request);
 			};
 		}

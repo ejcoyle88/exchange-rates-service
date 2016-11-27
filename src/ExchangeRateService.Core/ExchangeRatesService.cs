@@ -15,7 +15,7 @@ namespace ExchangeRateService.Core
 	public class ExchangeRatesService : IExchangeRatesService
 	{
 		private readonly ExchangeRatesCache _cache = new ExchangeRatesCache();
-		private readonly IExchangeRatesFetchingService _fetch = new OpenExchangeRatesFetchingService();
+		private readonly ExchangeRatesFetchingService _fetch = new ExchangeRatesFetchingService();
 
 		public ExchangeRatesResponse GetExchangeRatesFor(ExchangeRatesRequest request)
 		{

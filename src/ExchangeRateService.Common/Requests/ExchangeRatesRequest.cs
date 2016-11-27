@@ -7,8 +7,8 @@ namespace ExchangeRateService.Common.Requests
 	/// </summary>
 	public class ExchangeRatesRequest
 	{
-		public string BaseCurrencyCode { get; private set; }
-		public string CurrencyCode { get; private set; }
+		public string BaseCurrencyCode { get; set; }
+		public string CurrencyCode { get; set; }
 
 		internal ExchangeRatesRequest(string baseCurrencyCode,
 									string currencyCode)
@@ -16,5 +16,7 @@ namespace ExchangeRateService.Common.Requests
 			BaseCurrencyCode = baseCurrencyCode;
 			CurrencyCode = currencyCode;
 		}
+
+		public ExchangeRatesRequest() { }
 	}
 }

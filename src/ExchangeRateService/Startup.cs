@@ -6,11 +6,11 @@ using Owin;
 
 namespace ExchangeRateService
 {
-    public partial class Startup
-    {
-        public void Configuration(IAppBuilder app)
-        {
-            ConfigureNancy(app);
-        }
-    }
+	public partial class Startup
+	{
+		public void Configuration(IAppBuilder app)
+		{
+			ConfigureNancy(app);
+		}
+	}
 }

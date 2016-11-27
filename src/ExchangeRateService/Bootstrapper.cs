@@ -5,47 +5,47 @@ using Nancy.TinyIoc;
 
 namespace ExchangeRateService
 {
-    /// <summary>
-    /// Documentation: https://github.com/NancyFx/Nancy/wiki/Bootstrapper
-    /// </summary>
-    public class Bootstrapper : DefaultNancyBootstrapper
-    {
-        protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
-        {
-            base.ApplicationStartup(container, pipelines);
+	/// <summary>
+	/// Documentation: https://github.com/NancyFx/Nancy/wiki/Bootstrapper
+	/// </summary>
+	public class Bootstrapper : DefaultNancyBootstrapper
+	{
+		protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+		{
+			base.ApplicationStartup(container, pipelines);
 
-            // Add modules here such as:
-            // - Nancy.Authentication.Forms
-            // - Nancy.Authentication.Stateless
-        }
+			// Add modules here such as:
+			// - Nancy.Authentication.Forms
+			// - Nancy.Authentication.Stateless
+		}
 
-        protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
-        {
-            base.RequestStartup(container, pipelines, context);
-            
-            // You can also add modules here if you need to.
-        }
+		protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
+		{
+			base.RequestStartup(container, pipelines, context);
 
-        protected override void ConfigureConventions(NancyConventions nancyConventions)
-        {
-            base.ConfigureConventions(nancyConventions);
+			// You can also add modules here if you need to.
+		}
 
-            // If you are only using Nancy as an API you should probably uncomment the following code to set responses to JSON
-            //Conventions.AcceptHeaderCoercionConventions.Add((acceptHeaders, ctx) => new[]
-            //{
-            //    new Tuple<string, decimal>("application/json", 1)
-            //}.Concat(acceptHeaders));
-        }
+		protected override void ConfigureConventions(NancyConventions nancyConventions)
+		{
+			base.ConfigureConventions(nancyConventions);
 
-        protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
-        {
-            base.ConfigureRequestContainer(container, context);
+			// If you are only using Nancy as an API you should probably uncomment the following code to set responses to JSON
+			//Conventions.AcceptHeaderCoercionConventions.Add((acceptHeaders, ctx) => new[]
+			//{
+			//    new Tuple<string, decimal>("application/json", 1)
+			//}.Concat(acceptHeaders));
+		}
 
-            // Register the JSON Serializer you want to use
-            //container.Register<JsonSerializer, MyCustomSerializer>();
+		protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
+		{
+			base.ConfigureRequestContainer(container, context);
 
-            // Register any DbContexts
-            //container.Register<IUnitOfWork>((x, y) => new UnitOfWork(new AppContext()));
-        }
-    }
+			// Register the JSON Serializer you want to use
+			//container.Register<JsonSerializer, MyCustomSerializer>();
+
+			// Register any DbContexts
+			//container.Register<IUnitOfWork>((x, y) => new UnitOfWork(new AppContext()));
+		}
+	}
 }
