@@ -8,6 +8,7 @@ using System;
 using ExchangeRateService.Common.Models;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ExchangeRateService.Core
 {
@@ -32,6 +33,29 @@ namespace ExchangeRateService.Core
 				// If yes, return that result
 				return new ExchangeRatesResponse(cached);
 			}
+			else {
+				//TODO: We're making the assumption here that our API fetches USD as the default base rate.
+				// It's kinda bad, but I can't think of a better solution right now.
+				var baseRate = _cache.Get(new ExchangeRatesRequest
+				{
+					BaseCurrencyCode = "USD",
+					CurrencyCode = request.BaseCurrencyCode
+				});
+
+				var currRate = _cache.Get(new ExchangeRatesRequest
+				{
+					BaseCurrencyCode = "USD",
+					CurrencyCode = request.CurrencyCode
+				});
+
+				if (baseRate != null && currRate != null)
+				{
+					var rate = currRate.ConversionRate / baseRate.ConversionRate;
+					var exRate = new ExchangeRate(request.CurrencyCode, rate, request.BaseCurrencyCode, DateTime.UtcNow);
+					_cache.Add(exRate);
+					return new ExchangeRatesResponse(exRate);
+				}
+			}
 
 			// If no, check when we last pulled from the API.
 			var lastFetch = _cache.GetLastFetch();
@@ -47,11 +71,8 @@ namespace ExchangeRateService.Core
 			// Go get 'em.
 			var latest = _fetch.GetLatest();
 
-			// Make sure we get all of the possible rates we can get out of this info.
-			var allRates = GetAllPossibleExchangeRates(latest);
-
 			// If there was data, store this data in the historical storage & cache.
-			foreach (var rate in allRates)
+			foreach (var rate in latest)
 			{
 				// Cache this rate.
 				_cache.Add(rate);
@@ -61,64 +82,25 @@ namespace ExchangeRateService.Core
 			_cache.AddLastFetch(DateTime.UtcNow);
 
 			// If we have the rate we are looking for, return it. If not, we end up with an empty result.
-			var requestedRate = allRates.SingleOrDefault(x => x.BaseCurrencyCode == request.BaseCurrencyCode &&
+			var requestedRate = latest.SingleOrDefault(x => x.BaseCurrencyCode == request.BaseCurrencyCode &&
 													   x.CurrencyCode == request.CurrencyCode);
-			return new ExchangeRatesResponse(requestedRate);
-		}
 
-		//TODO: I need to find some way to make this significantly faster, currently this loop is doing (I think)
-		//  180 to the power of 2 conversions, minus USD ones because the API does those for us.
-		//  I've already started figuring out the inverse of each to approx. half the number of needed iterations,
-		//  but its still a lot and takes forever (over 30s).
-		private IEnumerable<ExchangeRate> GetAllPossibleExchangeRates(IEnumerable<ExchangeRate> apiRates)
-		{
-			var allExchangeRates = new List<ExchangeRate>(apiRates);
-
-			// Get a list of all of the currency codes.
-			var currencyCodes = apiRates.Select(x => x.CurrencyCode).Distinct().ToList();
-
-			foreach (var baseRate in currencyCodes)
+			// If it doesn't exist, but we can figure it out, figure it out and cache that too.
+			if (requestedRate == null &&
+			   latest.Any(x => x.CurrencyCode == request.BaseCurrencyCode) &&
+			   latest.Any(x => x.CurrencyCode == request.CurrencyCode))
 			{
-				// Get the rate of the api call BaseCurrencyCode to this Base.
-				var baseToBase = apiRates.SingleOrDefault(x => x.CurrencyCode == baseRate);
+				var baseRate = latest.Single(x => x.CurrencyCode == request.BaseCurrencyCode);
+				var currRate = latest.Single(x => x.CurrencyCode == request.CurrencyCode);
 
-				foreach (var conversion in currencyCodes)
-				{
-					// If we're already in the list, gtfo.
-					if (allExchangeRates.Any(x => x.BaseCurrencyCode == baseRate && x.CurrencyCode == conversion))
-					{
-						continue;
-					}
+				var rate = currRate.ConversionRate / baseRate.ConversionRate;
+				var exRate = new ExchangeRate(request.CurrencyCode, rate, request.BaseCurrencyCode, DateTime.UtcNow);
+				_cache.Add(exRate);
 
-					decimal conversionRate = 0;
-					// If baseToBase is null, we're doing BaseCurrencyCode to BaseCurrencyCode, which == 1.
-					if (baseToBase == null)
-					{
-						conversionRate = 1;
-					}
-					else
-					{
-						// Get the rate of the api call BaseCurrencyCode to this Currency.
-						var conversionExistingRate = apiRates.SingleOrDefault(x => x.CurrencyCode == conversion);
-						if (conversionExistingRate != null)
-						{
-							// Use both rates to find the rate between these two currencies.
-							conversionRate = conversionExistingRate.ConversionRate / baseToBase.ConversionRate;
-						}
-
-					}
-
-					// Stick this rate in the list.
-					allExchangeRates.Add(new ExchangeRate(conversion, conversionRate, baseRate, DateTime.UtcNow));
-					// Invert for speed.
-					if (!allExchangeRates.Any(x => x.BaseCurrencyCode == conversion && x.CurrencyCode == baseRate))
-					{
-						allExchangeRates.Add(new ExchangeRate(baseRate, 1 / conversionRate, conversion, DateTime.UtcNow));
-					}
-				}
+				requestedRate = exRate;
 			}
 
-			return allExchangeRates;
+			return new ExchangeRatesResponse(requestedRate);
 		}
 	}
 }
