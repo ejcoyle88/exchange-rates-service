@@ -11,7 +11,7 @@ namespace ExchangeRateService.Core.DataFetching
 		private readonly ConfigurationContainer _configuration = new ConfigurationContainer();
 		private readonly Dictionary<string, IDataFetchingStrategy> _strategies = new Dictionary<string, IDataFetchingStrategy>
 		{
-			{ "OpenExchangeRates", new OpenExchangeRatesFetchingStrategy() }
+			{ OpenExchangeRatesFetchingStrategy.Reference, new OpenExchangeRatesFetchingStrategy() }
 		};
 
 		public IEnumerable<ExchangeRate> GetLatest()
@@ -19,7 +19,7 @@ namespace ExchangeRateService.Core.DataFetching
 			var dataFetchingStrategy = _configuration.DataFetchingStrategy;
 			if (!_strategies.Keys.Any(x => x == dataFetchingStrategy))
 			{
-				var errMsgFormat = "Data fetching strategy not found: {0}";
+				var errMsgFormat = "Data fetching strategy not found: {0}.";
 				var errMsg = string.Format(errMsgFormat, dataFetchingStrategy);
 				throw new ConfigurationMissingException(errMsg);
 			}

@@ -8,6 +8,14 @@ namespace ExchangeRateService.Core.DataFetching.Strategies
 {
 	internal class OpenExchangeRatesFetchingStrategy : IDataFetchingStrategy
 	{
+		public static string Reference
+		{
+			get
+			{
+				return "OpenExchangeRates";
+			}
+		}
+
 		public IEnumerable<ExchangeRate> Fetch()
 		{
 			var exchangeRateData = Client.Get();
