@@ -3,9 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using ExchangeRateService.Common.Models;
 using OpenExchangeRates;
-using ExchangeRateService.Core.DataFetching.Strategies;
 
-namespace ExchangeRateService.Core.DataFetching
+namespace ExchangeRateService.Core.DataFetching.Strategies
 {
 	internal class OpenExchangeRatesFetchingStrategy : IDataFetchingStrategy
 	{
