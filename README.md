@@ -5,7 +5,7 @@ Defaults to using the [Open Exchange Rates](https://openexchangerates.org/) api.
 
 ## web.config options
 ### CacheExpiryTime
-The number of minutes before the cache should expire.
+The number of minutes before the cache should expire. Default: 60 minutes.
 ### DataFetchingStrategy
 The strategy class to call when the API should be hit. Possible values are:
   OpenExchangeRates
