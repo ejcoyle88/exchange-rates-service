@@ -7,6 +7,7 @@ namespace ExchangeRateService.Core.Caching
 {
 	internal class ExchangeRatesCache
 	{
+		private const string LastFetchCacheKey = "LAST_FETCHED";
 		// Singleton, because MS said so... :(
 		// https://msdn.microsoft.com/en-us/library/system.runtime.caching.memorycache.memorycache(v=vs.110).aspx
 		private static MemoryCache _memoryCache = null;
@@ -57,6 +58,17 @@ namespace ExchangeRateService.Core.Caching
 			var cacheItemPolicy = GetCacheItemPolicy();
 			var cacheItem = new CacheItem(cacheKey, exchangeRate);
 			MemCache.Add(cacheItem, cacheItemPolicy);
+		}
+
+		public void AddLastFetch(DateTime lastFetched)
+		{
+			var cacheItem = new CacheItem(LastFetchCacheKey, lastFetched);
+			MemCache.Add(cacheItem, new CacheItemPolicy());
+		}
+
+		public DateTime? GetLastFetch()
+		{
+			return MemCache.Get(LastFetchCacheKey) as DateTime?;
 		}
 	}
 }
