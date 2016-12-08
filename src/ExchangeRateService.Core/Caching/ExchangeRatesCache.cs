@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Caching;
 using ExchangeRateService.Common.Models;
 using ExchangeRateService.Common.Requests;
@@ -51,6 +52,14 @@ namespace ExchangeRateService.Core.Caching
 			var cacheKey = GetCacheKey(request);
 			return MemCache.Get(cacheKey) as ExchangeRate;
 		}
+
+	    public void Add(IEnumerable<ExchangeRate> exchangeRates)
+	    {
+	        foreach (var rate in exchangeRates)
+	        {
+	            Add(rate);
+	        }
+	    }
 
 		public void Add(ExchangeRate exchangeRate)
 		{

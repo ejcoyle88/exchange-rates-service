@@ -53,7 +53,7 @@
     <Compile Include="TestRootPathProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExchangeRateService\ExchangeRateService.csproj">
+    <ProjectReference Include="..\ExchangeRateService\ExchangeRateService.Nancy.csproj">
       <Project>{F176B33B-A5F1-4252-9835-2A8F45C7B803}</Project>
       <Name>ExchangeRateService</Name>
     </ProjectReference>

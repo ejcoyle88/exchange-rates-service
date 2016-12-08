@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Nancy", "ExchangeRateService\ExchangeRateService.Nancy.csproj", "{F176B33B-A5F1-4252-9835-2A8F45C7B803}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Tests", "ExchangeRateService.Tests\ExchangeRateService.Tests.csproj", "{64C32EF3-2F77-45B4-830A-FF909DB685F7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Client", "ExchangeRateService.Client\ExchangeRateService.Client.csproj", "{E0F9A765-36BB-4F91-8F8A-470625056AE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRateService.Common", "ExchangeRateService.Common\ExchangeRateService.Common.csproj", "{B604F62A-65C2-4143-9527-2791A606DEBB}"
@@ -23,10 +21,6 @@ Global
 		{F176B33B-A5F1-4252-9835-2A8F45C7B803}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F176B33B-A5F1-4252-9835-2A8F45C7B803}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F176B33B-A5F1-4252-9835-2A8F45C7B803}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64C32EF3-2F77-45B4-830A-FF909DB685F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64C32EF3-2F77-45B4-830A-FF909DB685F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64C32EF3-2F77-45B4-830A-FF909DB685F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64C32EF3-2F77-45B4-830A-FF909DB685F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0F9A765-36BB-4F91-8F8A-470625056AE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0F9A765-36BB-4F91-8F8A-470625056AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0F9A765-36BB-4F91-8F8A-470625056AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
