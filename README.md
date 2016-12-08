@@ -8,6 +8,19 @@ Defaults to using the [Open Exchange Rates](https://openexchangerates.org/) api.
 The number of minutes before the cache should expire. Default: 60 minutes.
 ### DataFetchingStrategy
 The strategy class to call when the API should be hit. Possible values are:
-  OpenExchangeRates
+  * OpenExchangeRates
+  * Google
+
+Defaults to Google
+### HistoricalStorageStrategy
+The strategy class to call when the data should be stored for archive purposes. Possible values are:
+ * None
+ * Mongo
+
+Defaults to None
+### MongoDbConnectionString
+The connection string that will be used by the Mongo HistoricalStorageStrategy if this is used.
+### MongoDbDatabaseName
+The mongo database that will be used by the Mongo HistoricalStorageStrategy if this is used.
 ### OpenExchangeRates.ApiKey
 The API key for OpenExchangeRates. Required if this DataFetchingStrategy is used.
